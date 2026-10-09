@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Teachers' Day ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b9d;
+            --secondary: #a78bfa;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(
+                135deg,
+                #667eea,
+                #764ba2,
+                #b76eaa,
+                #667eea
+            );
+            background-size: 300% 300%;
+            animation: gradient 12s ease infinite;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating {
+            position: absolute;
+            bottom: -60px;
+            animation: floatUp linear infinite;
+            opacity: 0.65;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            to {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 750px;
+            padding: 38px 28px;
+            text-align: center;
+            color: white;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            animation: appear 0.8s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .icon {
+            font-size: 65px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 46px);
+            margin-top: 15px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .subtitle {
+            font-size: 17px;
+            line-height: 1.8;
+            margin-top: 15px;
+            color: #fff8ff;
+        }
+
+        .divider {
+            width: 90px;
+            height: 4px;
+            border-radius: 20px;
+            margin: 20px auto;
+            background: white;
+        }
+
+        .section-title {
+            font-size: 23px;
+            margin: 25px 0 15px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            outline: none;
+            font-size: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #57417d;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: #ffb6d2;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .teachers {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .teacher-btn {
+            padding: 15px 8px;
+            min-height: 58px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.96);
+            color: #6448a0;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .teacher-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background: #fff0f6;
+        }
+
+        .teacher-btn:active {
+            transform: scale(0.96);
+        }
+
+        .teacher-btn.active {
+            background: #ffdfec;
+            border: 2px solid #ff8bb5;
+        }
+
+        .no-results {
+            display: none;
+            padding: 20px;
+            line-height: 1.7;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 15px;
+        }
+
+        .message-box {
+            display: none;
+            margin-top: 28px;
+            padding: 25px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: messageIn 0.5s ease;
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-icon {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        #teacherName {
+            font-size: 25px;
+            margin-bottom: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        #teacherText {
+            font-size: 16px;
+            line-height: 1.9;
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 30px;
+            padding: 13px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn {
+            color: #6749a5;
+            background: white;
+        }
+
+        .surprise-btn {
+            color: white;
+            background: linear-gradient(45deg, #ff5796, #ff9bba);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .celebration {
+            display: none;
+            margin-top: 25px;
+            padding: 25px 15px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.18);
+            animation: appear 0.5s ease;
+        }
+
+        .celebration h2 {
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .celebration p {
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .celebration-emoji {
+            font-size: 35px;
+            margin-top: 15px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -40px;
+            z-index: 5;
+            pointer-events: none;
+            animation: heartFloat 3.5s linear forwards;
+        }
+
+        @keyframes heartFloat {
+            from {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(-110vh) scale(1.5) rotate(25deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            top: -20px;
+            z-index: 10;
+            pointer-events: none;
+            animation: confettiFall 4s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 560px) {
+            body {
+                padding: 18px 10px;
+            }
+
+            .card {
+                padding: 28px 16px;
+                border-radius: 24px;
+            }
+
+            .icon {
+                font-size: 55px;
+            }
+
+            .subtitle {
+                font-size: 15px;
+            }
+
+            .teachers {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .teacher-btn {
+                font-size: 13px;
+                padding: 13px 5px;
+            }
+
+            #teacherText {
+                font-size: 15px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background" id="background"></div>
+
+    <main class="card">
+
+        <div class="icon">👩‍🏫👨‍🏫📚</div>
+
+        <h1>Happy Teachers' Day!</h1>
+
+        <p class="subtitle">
+            To our amazing teachers ❤️<br>
+            Thank you for inspiring us to learn, grow, and dream.
+        </p>
+
+        <div class="divider"></div>
+
+        <h2 class="section-title">💌 A Special Message For...</h2>
+
+        <input
+            type="search"
+            class="search-box"
+            id="searchInput"
+            placeholder="🔍 Search your teacher's name..."
+            aria-label="Search teacher names"
+        >
+
+        <div class="teachers" id="teachers"></div>
+
+        <p class="no-results" id="noResults">
+            😔 No teacher found.<br>
+            Try searching for another name.
+        </p>
+
+        <section class="message-box" id="teacherMessage" aria-live="polite">
+
+            <div class="message-icon">💐</div>
+
+            <h2 id="teacherName"></h2>
+
+            <p id="teacherText"></p>
+
+            <div class="action-buttons">
+
+                <button
+                    class="action-btn close-btn"
+                    onclick="closeMessage()">
+                    ✖ Close Message
+                </button>
+
+                <button
+                    class="action-btn surprise-btn"
+                    onclick="celebrate()">
+                    🎉 Celebrate!
+                </button>
+
+            </div>
+
+        </section>
+
+        <section class="celebration" id="celebration" aria-live="polite">
+
+            <h2>🎉 You Are Amazing! 🎉</h2>
+
+            <p>
+                Great teachers inspire, encourage, and change lives.
+                Thank you for sharing your knowledge, patience,
+                and wisdom with your students.
+
+                <br><br>
+
+                May you always find joy in teaching and fulfillment
+                in seeing your students succeed.
+
+                <br><br>
+
+                Happy Teachers' Day! ❤️
+            </p>
+
+            <div class="celebration-emoji">
+                🎓 💐 ❤️ 📚 ✨
+            </div>
+
+            <button
+                class="action-btn close-btn"
+                onclick="closeCelebration()"
+                style="margin-top: 20px;">
+                Close ✖
+            </button>
+
+        </section>
+
+        <div class="footer">
+            Made with ❤️ and appreciation by your students.
+            <br>
+            Every teacher deserves to be celebrated! ✨
+        </div>
+
+    </main>
+
+    <script>
+        // TEACHER LIST
+        const teachers = [
+            { name: "Sir Jay", emoji: "👨‍🏫" },
+            { name: "Sir Caloy", emoji: "👨‍🏫" },
+            { name: "Sir Dadz", emoji: "👨‍🏫" },
+            { name: "Sir Jamil", emoji: "👨‍🏫" },
+            { name: "Sir Samuel", emoji: "👨‍🏫" },
+            { name: "Sir Mark", emoji: "👨‍🏫" },
+            { name: "Sir Eric", emoji: "👨‍🏫" },
+            { name: "Sir Christopher", emoji: "👨‍🏫" },
+            { name: "Sir Mark James", emoji: "👨‍🏫" },
+            { name: "Sir Kent", emoji: "👨‍🏫" },
+            { name: "Sir JP", emoji: "👨‍🏫" },
+            { name: "Sir Rodz", emoji: "👨‍🏫" },
+
+            { name: "Ma'am Cristine", emoji: "👩‍🏫" },
+            { name: "Ma'am Maricel", emoji: "👩‍🏫" },
+            { name: "Ma'am Adoracion", emoji: "👩‍🏫" },
+            { name: "Ma'am Mercedes", emoji: "👩‍🏫" },
+            { name: "Ma'am Toni", emoji: "👩‍🏫" },
+            { name: "Ma'am Fedz", emoji: "👩‍🏫" },
+            { name: "Ma'am Eden", emoji: "👩‍🏫" },
+            { name: "Ma'am Diana", emoji: "👩‍🏫" },
+            { name: "Ma'am Caroline", emoji: "👩‍🏫" },
+            { name: "Ma'am Madel", emoji: "👩‍🏫" },
+            { name: "Ma'am Joana", emoji: "👩‍🏫" },
+            { name: "Ma'am Rachel", emoji: "👩‍🏫" },
+            { name: "Ma'am Mara", emoji: "👩‍🏫" },
+            { name: "Ma'am Rovs", emoji: "👩‍🏫" },
+            { name: "Ma'am Vernamay", emoji: "👩‍🏫" },
+            { name: "Ma'am Jeevy", emoji: "👩‍🏫" }
+        ];
+
+        // CREATE A PERSONALIZED MESSAGE
+        function getMessage(name) {
+            return `Dear ${name},
+
+Thank you for your patience, dedication, and commitment to teaching us.
+
+Your lessons go beyond the classroom. You inspire us to keep learning, believe in ourselves, and become better individuals.
+
+We may not always express our appreciation, but we are truly grateful for the time, effort, and knowledge you share with us.
+
+May God bless you with good health, wisdom, happiness, and strength in everything you do.
+
+Thank you for being part of our journey and for making a difference in our lives.
+
+Happy Teachers' Day! ❤️📚`;
+        }
+
+        const teachersContainer = document.getElementById("teachers");
+        const searchInput = document.getElementById("searchInput");
+        const noResults = document.getElementById("noResults");
+
+        const teacherMessage = document.getElementById("teacherMessage");
+        const teacherName = document.getElementById("teacherName");
+        const teacherText = document.getElementById("teacherText");
+        const celebration = document.getElementById("celebration");
+
+        let selectedButton = null;
+
+        // CREATE TEACHER BUTTONS
+        function renderTeachers(filter = "") {
+            teachersContainer.replaceChildren();
+
+            const filteredTeachers = teachers.filter(teacher =>
+                teacher.name.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            noResults.style.display =
+                filteredTeachers.length === 0 ? "block" : "none";
+
+            filteredTeachers.forEach(teacher => {
+                const button = document.createElement("button");
+
+                button.className = "teacher-btn";
+                button.type = "button";
+                button.textContent =
+                    `${teacher.emoji} ${teacher.name}`;
+
+                button.addEventListener("click", () => {
+                    showMessage(teacher, button);
+                });
+
+                teachersContainer.appendChild(button);
+            });
+        }
+
+        // SHOW THE PERSONALIZED MESSAGE
+        function showMessage(teacher, button) {
+            teacherName.textContent =
+                `💐 ${teacher.name}`;
+
+            teacherText.textContent =
+                getMessage(teacher.name);
+
+            teacherMessage.style.display = "block";
+            celebration.style.display = "none";
+
+            if (selectedButton) {
+                selectedButton.classList.remove("active");
+            }
+
+            selectedButton = button;
+            selectedButton.classList.add("active");
+
+            createHearts();
+
+            teacherMessage.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+
+        // CLOSE MESSAGE
+        function closeMessage() {
+            teacherMessage.style.display = "none";
+
+            if (selectedButton) {
+                selectedButton.classList.remove("active");
+                selectedButton = null;
+            }
+        }
+
+        // CELEBRATION BUTTON
+        function celebrate() {
+            celebration.style.display = "block";
+
+            createHearts();
+            createConfetti();
+
+            celebration.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+
+        // CLOSE CELEBRATION
+        function closeCelebration() {
+            celebration.style.display = "none";
+        }
+
+        // SEARCH TEACHERS
+        searchInput.addEventListener("input", event => {
+            renderTeachers(event.target.value);
+        });
+
+        // FLOATING HEARTS
+        function createHearts() {
+            const symbols = ["💖", "💕", "❤️", "✨", "🌸"];
+
+            for (let i = 0; i < 16; i++) {
+                const heart = document.createElement("div");
+
+                heart.className = "heart";
+                heart.textContent =
+                    symbols[Math.floor(Math.random() * symbols.length)];
+
+                heart.style.left = Math.random() * 100 + "vw";
+
+                heart.style.fontSize =
+                    (18 + Math.random() * 20) + "px";
+
+                heart.style.animationDuration =
+                    (2.5 + Math.random() * 2) + "s";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 5000);
+            }
+        }
+
+        // CONFETTI
+        function createConfetti() {
+            const symbols = ["🎉", "✨", "💖", "🎊", "⭐"];
+
+            for (let i = 0; i < 65; i++) {
+                const piece = document.createElement("div");
+
+                piece.className = "confetti";
+                piece.textContent =
+                    symbols[Math.floor(Math.random() * symbols.length)];
+
+                piece.style.left = Math.random() * 100 + "vw";
+
+                piece.style.fontSize =
+                    (12 + Math.random() * 18) + "px";
+
+                piece.style.animationDuration =
+                    (2 + Math.random() * 3) + "s";
+
+                document.body.appendChild(piece);
+
+                setTimeout(() => piece.remove(), 5500);
+            }
+        }
+
+        // BACKGROUND FLOATING EMOJIS
+        function createBackground() {
+            const background = document.getElementById("background");
+            const symbols = ["❤️", "🌸", "✨", "💖", "⭐", "💐"];
+
+            for (let i = 0; i < 18; i++) {
+                const item = document.createElement("span");
+
+                item.className = "floating";
+                item.textContent =
+                    symbols[Math.floor(Math.random() * symbols.length)];
+
+                item.style.left = Math.random() * 100 + "%";
+
+                item.style.fontSize =
+                    (18 + Math.random() * 18) + "px";
+
+                item.style.animationDuration =
+                    (7 + Math.random() * 9) + "s";
+
+                item.style.animationDelay =
+                    (-Math.random() * 15) + "s";
+
+                background.appendChild(item);
+            }
+        }
+
+        // INITIALIZE WEBSITE
+        renderTeachers();
+        createBackground();
+    </script>
+
+</body>
+
+</html>
